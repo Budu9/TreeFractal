@@ -1,16 +1,36 @@
 #include "raylib.h"
+#include <math.h>
 #define BACKGROUND_COLOUR RAYWHITE
 #define FRACTAL_COLOUR BLACK
 #define WIDTH 1500
 #define HEIGHT 1500
-#define BASE_LENGTH 250
-#define BASE_THICKNESS 25
+#define BASE_LENGTH 200
+#define BASE_THICKNESS 5
+#define REDUCTION_FACTOR 0.9
 #define BASE_ANGLE 0
+#define PI 3.141592653589793
+#define ANGLE_INCREASE_FACTOR 0.2
+#define MAX_GENERATIONS 8
 
-void DrawBranch(float x, float y, float length, float thickness, float angle) {
-    // DrawLineEx(Vector2 startPos, Vector2 endPos, float thick, Color color);
-    DrawLineEx((Vector2){x, y}, (Vector2){x, y-length}, thickness, FRACTAL_COLOUR);
 
+void DrawBranch(Vector2 startV, float length, float thickness, float angle, int generation)
+{
+    if (generation > MAX_GENERATIONS)
+        return;
+
+    Vector2 endV = {
+        startV.x + length * sinf(angle),
+        startV.y - length * cosf(angle)
+    };
+
+    DrawLineEx(startV, endV, thickness, FRACTAL_COLOUR);
+
+    float newLength = length * REDUCTION_FACTOR;
+    float newThickness = thickness * REDUCTION_FACTOR;
+
+    DrawBranch(endV, newLength, newThickness, angle - ANGLE_INCREASE_FACTOR, generation + 1);
+
+    DrawBranch(endV, newLength, newThickness, angle + ANGLE_INCREASE_FACTOR, generation + 1);
 }
 
 
@@ -30,7 +50,7 @@ int main(void)
         ClearBackground(BACKGROUND_COLOUR);
 
         // all logic
-        DrawBranch(WIDTH/2, HEIGHT, BASE_LENGTH, BASE_THICKNESS, BASE_ANGLE);
+        DrawBranch((Vector2){WIDTH/2, HEIGHT-100}, BASE_LENGTH, BASE_THICKNESS, BASE_ANGLE, 0);
 
         EndDrawing();
     }
