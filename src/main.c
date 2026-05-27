@@ -1,14 +1,24 @@
 #include "raylib.h"
 #define BACKGROUND_COLOUR RAYWHITE
 #define FRACTAL_COLOUR BLACK
+#define WIDTH 1500
+#define HEIGHT 1500
+#define BASE_LENGTH 250
+#define BASE_THICKNESS 25
+#define BASE_ANGLE 0
+
+void DrawBranch(float x, float y, float length, float thickness, float angle) {
+    // DrawLineEx(Vector2 startPos, Vector2 endPos, float thick, Color color);
+    DrawLineEx((Vector2){x, y}, (Vector2){x, y-length}, thickness, FRACTAL_COLOUR);
+
+}
+
 
 int main(void)
 {
 
-    const int screenWidth = 800;
-    const int screenHeight = 450;
 
-    InitWindow(screenWidth, screenHeight, "Fractal Window");
+    InitWindow(WIDTH, HEIGHT, "Fractal Window");
 
     SetTargetFPS(60);
 
@@ -19,6 +29,8 @@ int main(void)
 
         ClearBackground(BACKGROUND_COLOUR);
 
+        // all logic
+        DrawBranch(WIDTH/2, HEIGHT, BASE_LENGTH, BASE_THICKNESS, BASE_ANGLE);
 
         EndDrawing();
     }
