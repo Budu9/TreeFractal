@@ -4,13 +4,12 @@
 #define FRACTAL_COLOUR BLACK
 #define WIDTH 1500
 #define HEIGHT 1500
-#define BASE_LENGTH 200
-#define BASE_THICKNESS 5
-#define REDUCTION_FACTOR 0.9
+#define BASE_LENGTH 300
+#define BASE_THICKNESS 15
+#define REDUCTION_FACTOR 0.8
 #define BASE_ANGLE 0
-#define PI 3.141592653589793
-#define ANGLE_INCREASE_FACTOR 0.2
-#define MAX_GENERATIONS 8
+#define ANGLE_INCREASE_FACTOR 0.3
+#define MAX_GENERATIONS 10
 
 
 void DrawBranch(Vector2 startV, float length, float thickness, float angle, int generation)
